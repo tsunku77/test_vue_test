@@ -8,11 +8,11 @@
       <li v-text="$store.state.del"></li>
     </ul>
     <ul :class="$store.state.ulcss" v-for="(name,index) in $store.state.todoitems" :key="index" ref="changeColor">
-      <li><input type="checkbox" v-model="$store.state.ckck" @click="ck_click(index)"></li>
+      <li><input type="checkbox" ref="ckck" @click="ck_click(name,index)"></li>
       <li>{{index+1}}</li>
       <li>{{name}}</li>
       <li><button type="button" v-text="$store.state.btns3" @click="mo_btn()"></button></li>
-      <li><button type="button" v-text="$store.state.btns2" @click="del_btn(name,name.index)"></button></li>
+      <li><button type="button" v-text="$store.state.btns2" @click="del_btn(name,index)"></button></li>
     </ul>
   </div>
 </template>
@@ -21,21 +21,19 @@
 export default {
   name: "Comp3",
   methods:{
-    del_btn(){
-      this.$store.dispatch('del_btn');
+    del_btn(name,index){
+      this.$store.commit('del_btn',{name,index});
     },
-    ck_click(){
-      console.log(this.$store.state.ckck);
-      // if(this.$store.state.ckck===false ){
-      //     this.$refs.changeColor[ref_index].style.background="pink"
-      //   this.$store.state.ckck===false
-      // }
-      // else{
-      //   this.$refs.changeColor[ref_index].style.background="none"
-      // }
+    ck_click(name,ref_index){
+      if(this.$refs.ckck[ref_index].checked===true ){
+          this.$refs.changeColor[ref_index].style.background="pink"
+      }
+      else{
+        this.$refs.changeColor[ref_index].style.background="none"
+      }
     },
     mo_btn(){
-      alert("준비중 입니다^^ㅎㅎ");
+      alert("준비중 입니다^^");
     }
   }
 }
