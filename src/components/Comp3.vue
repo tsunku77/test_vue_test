@@ -1,18 +1,18 @@
 <template>
   <div class="Comp3">
     <ul :class="$store.state.ulcss" style="background: red; color:white">
-      <li v-text="$store.state.ck"></li>
-      <li v-text="$store.state.no"></li>
-      <li v-text="$store.state.todo"></li>
-      <li v-text="$store.state.modi"></li>
-      <li v-text="$store.state.del"></li>
+      <li v-text="ck"></li>
+      <li v-text="no"></li>
+      <li v-text="todo"></li>
+      <li v-text="modi"></li>
+      <li v-text="del"></li>
     </ul>
     <ul :class="$store.state.ulcss" v-for="(name,index) in $store.state.todoitems" :key="index" ref="changeColor">
       <li><input type="checkbox" ref="ckck" @click="ck_click(name,index)"></li>
       <li>{{index+1}}</li>
       <li>{{name}}</li>
-      <li><button type="button" v-text="$store.state.btns3" @click="mo_btn()"></button></li>
-      <li><button type="button" v-text="$store.state.btns2" @click="del_btn(name,index)"></button></li>
+      <li><button type="button" v-text="btns3" @click="mo_btn()"></button></li>
+      <li><button type="button" v-text="btns2" @click="del_btn(name,index)"></button></li>
     </ul>
   </div>
 </template>
@@ -20,9 +20,17 @@
 <script>
 export default {
   name: "Comp3",
+  data(){
+    return{
+      ck:"체크",no:"NO",todo:"TO DO", modi:"수정",del:"삭제",
+      btns2:"삭제",btns3:"수정"
+    }
+  },
   methods:{
     del_btn(name,index){
       this.$store.commit('del_btn',{name,index});
+      this.$refs.changeColor[index].style.background="none"
+      this.$refs.ckck[index].checked=false
     },
     ck_click(name,ref_index){
       if(this.$refs.ckck[ref_index].checked===true ){
@@ -46,7 +54,7 @@ export default {
   }
   .ulcss>li{
     border:1px solid black;
-    width:100%; height:30px;
+    height:30px;
     display:flex; flex-direction: row; justify-content: center; align-items: center;
   }
   .ulcss>li:nth-of-type(1){width:50px;}
