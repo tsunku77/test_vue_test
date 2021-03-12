@@ -1,13 +1,13 @@
 <template>
   <div class="Comp3">
-    <ul :class="$store.state.ulcss" style="background: red; color:white">
+    <ul :class="ulcss" style="background: red; color:white">
       <li v-text="ck"></li>
       <li v-text="no"></li>
       <li v-text="todo"></li>
       <li v-text="modi"></li>
       <li v-text="del"></li>
     </ul>
-    <ul :class="$store.state.ulcss" v-for="(name,index) in $store.state.todoitems" :key="index" ref="changeColor">
+    <ul :class="ulcss" v-for="(name,index) in $store.state.todoitems" :key="index" ref="changeColor">
       <li><input type="checkbox" ref="ckck" @click="ck_click(name,index)"></li>
       <li>{{index+1}}</li>
       <li>{{name}}</li>
@@ -23,7 +23,7 @@ export default {
   data(){
     return{
       ck:"체크",no:"NO",todo:"TO DO", modi:"수정",del:"삭제",
-      btns2:"삭제",btns3:"수정"
+      btns2:"삭제",btns3:"수정",ulcss:"ulcss",
     }
   },
   methods:{

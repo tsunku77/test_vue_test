@@ -6,7 +6,6 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     state:{
         todoitems:[],
-        ulcss:"ulcss",
     },
     mutations:{
         add_btn(state,payload){
