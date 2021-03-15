@@ -9,7 +9,7 @@ export const store = new Vuex.Store({
     },
     mutations:{
         add_btn(state,payload){
-                state.todoitems.push(payload) // 입력값 배열에 넣기
+                state.todoitems.unshift(payload) // 입력값 배열에 넣기
                 state.counter = '';
         },
         del_btn(state,payload){

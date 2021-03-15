@@ -1,17 +1,17 @@
 <template>
-  <div class="Comp2">
+  <div class="todo_input">
     <input type="text" v-model="counter" placeholder="할 일을 작성해주세요" @keypress.enter="add_btn()" ref="ref_focus" autofocus>
     <button type="button" v-text="btns" @click="add_btn"></button>
-    <button type="button" v-text="btns2"></button>
+    <button type="button" v-text="btns2" @click="del_btn()"></button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Comp2",
+  name: "todo_input",
   data(){
     return{
-      counter:'',btns: "추가",btns2:"삭제",
+      counter:'', btns: "추가", btns2:"삭제",
     }
   },
   methods:{
@@ -26,6 +26,9 @@ export default {
         this.$refs.ref_focus.focus();
       }
     },
+    del_btn(){
+      this.$store.commit('del_btn',this.counter);
+    }
   }
 }
 </script>

@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <Comp1></Comp1>
+    <todo_box></todo_box>
   </div>
 </template>
 
 <script>
-import Comp1 from './components/Comp1.vue'
+import todo_box from './components/todo_box.vue'
 
 export default {
   name:'App',
-  components: {Comp1},
+  components: {todo_box},
 }
 </script>
