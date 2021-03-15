@@ -1,7 +1,8 @@
 <template>
   <div class="Comp2">
-    <input type="text" v-model="counter" placeholder="할 일을 작성해주세요" @keypress.enter="add_btn" ref="ref_focus" autofocus>
+    <input type="text" v-model="counter" placeholder="할 일을 작성해주세요" @keypress.enter="add_btn()" ref="ref_focus" autofocus>
     <button type="button" v-text="btns" @click="add_btn"></button>
+    <button type="button" v-text="btns2"></button>
   </div>
 </template>
 
@@ -10,7 +11,7 @@ export default {
   name: "Comp2",
   data(){
     return{
-      counter:'',btns: "추가"
+      counter:'',btns: "추가",btns2:"삭제",
     }
   },
   methods:{
