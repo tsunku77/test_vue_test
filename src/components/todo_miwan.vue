@@ -12,13 +12,11 @@
       <li v-text="miwan"></li>
     </ul>
     <ul class="ulcss" v-for="(name,index) in $store.state.todoitems" :key="index" ref="changeColor">
-      <li><input type="checkbox" @click="ck_click(name,index)" :value="checkboxVal"
-                 :checked="booleanValue"
-                 @input="checkboxVal = $event.target.value"></li>
+      <li><input type="checkbox" @click="ck_click(name,index)" ref="ckck" :value="name" v-model="$store.state.ck_model"></li>
       <li>{{index+1}}</li>
-      <li @click="$event.target.classList.toggle('active')" :class="{ active: isActive }">{{name}}</li>
-      <li>{{$moment().format('YYYY-MM-DD HH:mm:ss')}}</li>
-      <li><button type="button" v-text="btns4"  @click="complete()"></button></li>
+      <li @click="$event.target.classList.toggle('active')" :class="{ active: isActive }">{{name.split("?")[0]}}</li>
+      <li>{{name.split("?")[1]}}</li>
+      <li><button type="button" v-text="btns4"  @click="complete(index)"></button></li>
       <li>{{arraw}}</li>
     </ul>
   </div>
@@ -30,8 +28,8 @@ export default {
   data(){
     return{
       ck:"체크",no:"NO",todo:"TO DO", modi:"수정",del:"삭제",date:"작성일시",result:"상태",
-      miwan:"미완료",order:"순서",arraw:"↕",booleanValue:false,checkboxVal:"",
-      btns3:"수정",btns4:"완료",isActive:false,
+      miwan:"미완료",order:"순서",arraw:"↕",ckckck:[],
+      btns3:"수정",btns4:"완료시키기",isActive:false,
     }
   },
   methods:{
@@ -40,18 +38,19 @@ export default {
       this.$refs.changeColor[index].style.background="none"
       this.$refs.ckck[index].checked=false
     },
-    ck_click(){
-      console.log(this.booleanValue);
-      // console.log(this.$refs.ckck[ref_index].checked);
-      // if(this.$refs.ckck[ref_index].checked===true){
-      //   this.$refs.changeColor[ref_index].style.background="pink"
-      // }
-      // else{
-      //   this.$refs.changeColor[ref_index].style.background="none"
-      // }
+    ck_click(name,index){
+      // this.ckckck.push({gg:index});
+      // console.log(this.gg);
+      if(this.$refs.ckck[index].checked===true){
+        this.$refs.changeColor[index].style.background="pink"
+      }
+      else{
+        this.$refs.changeColor[index].style.background="none"
+      }
     },
-    complete(){
-      console.log('com');
+    complete(index){
+        this.$delete(this.$store.state.todoitems,index);
+        //삭제된거 완료로 붙여넣기.
     }
   }
 }
@@ -59,7 +58,7 @@ export default {
 <style>
 .titles{
   list-style: none; margin:0; padding:0;
-  width:600px; height:30px;
+  width:650px; height:30px;
 }
 .titles>li{
   border:1px solid black;
@@ -71,7 +70,7 @@ export default {
 }
 .ulcss{
   list-style: none; margin:0; padding:0;
-  width:600px; height:auto;
+  width:650px; height:auto;
   display:flex; flex-direction: row;
 }
 .ulcss>li{
@@ -83,6 +82,6 @@ export default {
 .ulcss>li:nth-of-type(2){width:50px;}
 .ulcss>li:nth-of-type(3){width:200px; cursor:pointer;}
 .ulcss>li:nth-of-type(4){width:200px;}
-.ulcss>li:nth-of-type(5){width:50px;}
+.ulcss>li:nth-of-type(5){width:100px;}
 .ulcss>li:nth-of-type(6){width:50px;}
 </style>
