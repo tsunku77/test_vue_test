@@ -1,6 +1,6 @@
 <template>
   <div class="todo_miwan">
-    <ul class="ulcss" style="background: red; color:white !important;">
+    <ul class="ulcss" style="background: red; color:white">
       <li v-text="ck"></li>
       <li v-text="no"></li>
       <li v-text="todo"></li>
