@@ -12,7 +12,7 @@
     <ul class="titles">
       <li v-text="miwan"></li>
     </ul>
-    <ul class="ulcss" v-for="(name,index) in $store.state.todoitems" :key="index" ref="changeColor">
+    <ul class="ulcss" v-for="(name,index) in todoitems" :key="index" ref="changeColor">
       <li><input type="checkbox" @click="ck_click(name,index)" ref="ckck" v-model="$store.state.abc[index]"></li>
       <li>{{index+1}}</li>
       <li @click="$event.target.classList.toggle('active')" :class="{ active: isActive }">{{name.split("?")[0]}}</li>
@@ -29,7 +29,10 @@
 </template>
 
 <script>
+import {mapState,mapGetters} from "vuex";
+
 export default {
+
   name: "todo_miwan",
   data(){
     return{
@@ -39,23 +42,16 @@ export default {
       btns3:"수정",btns4:"완료시키기",isActive:false,
     }
   },
+  computed: {
+    ...mapState(['todoitems']),
+    ...mapGetters(['abc'])
+  },
   methods:{
-    ck_click(name,index){ //getters로 하고싶은데 index를 못갖고옴 ㅠㅠ
-
-      // if(this.countUP===0) {
-      //   this.ifif = !this.ifif
-      //   this.ifif2 = !this.ifif2
-      // }
-      // else {
-      //   this.ifif = !this.ifif
-      //   this.ifif3 = !this.ifif3
-      // }
-      // else{
-      //   this.ifif = true;
-      // }
+    ck_click(name,index){
+      this.countUP = index;
 
       //undefined,true false 조정
-      if(this.$store.state.abc[index]===undefined){
+      if(this.abc[index]===undefined){
         this.$store.state.abc[index]=true
         if(this.$store.state.abc[index]===true){
           this.$refs.changeColor[index].style.background="pink"
