@@ -6,7 +6,8 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     state:{
         todoitems:[],
-        ck_model:""
+        abc:[],
+        arraw:"",arraw1:"↓",arraw2:"↕",arraw3:"↑",
     },
     mutations:{
         add_btn(state,payload){
