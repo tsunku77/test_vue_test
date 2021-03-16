@@ -12,12 +12,12 @@
     <ul class="titles">
       <li v-text="miwan"></li>
     </ul>
-    <ul class="ulcss" v-for="(name,index) in todoitems" :key="index" ref="changeColor">
-      <li><input type="checkbox" @click="ck_click(name,index)" ref="ckck" v-model="$store.state.abc[index]"></li>
+    <ul class="ulcss" v-for="(name,index) in todoitems" :key="index">
+      <li><input type="checkbox" ref="ckck" @click="ck_click(index)" v-model="$store.state.abc[index]"></li>
       <li>{{index+1}}</li>
       <li @click="$event.target.classList.toggle('active')" :class="{ active: isActive }">{{name.split("?")[0]}}</li>
       <li>{{name.split("?")[1].substr(0,19)}}</li>
-      <li v-if="wan_if[index]">{{msg}}</li>
+      <li v-if="$store.state.wan_if[index]">{{msg}}</li>
       <li v-else>{{miwan}}</li>
       <li><button type="button" v-text="btns4"  @click="complete(index)"></button></li>
       <li v-if="ifif">{{$store.state.arraw}}</li>
@@ -29,47 +29,24 @@
 </template>
 
 <script>
-import {mapState,mapGetters} from "vuex";
-
+import {mapState} from "vuex";
 export default {
-
   name: "todo_miwan",
   data(){
     return{
       ck:"체크",no:"NO",todo:"TO DO", modi:"수정",del:"삭제",date:"작성일시",result:"상태",
-      miwan:"미완료",order:"순서",wan_miwan:"결과",msg:"완료",wan_if:[],
+      miwan:"미완료",order:"순서",wan_miwan:"결과",msg:"완료",
       ifif:true,countUP:0, ifif2:false,ifif3:false,
       btns3:"수정",btns4:"완료시키기",isActive:false,
     }
   },
   computed: {
     ...mapState(['todoitems']),
-    ...mapGetters(['abc'])
+    // ...mapGetters(['abc']),
   },
   methods:{
-    ck_click(name,index){
-      this.countUP = index;
-
-      //undefined,true false 조정
-      if(this.abc[index]===undefined){
-        this.$store.state.abc[index]=true
-        if(this.$store.state.abc[index]===true){
-          this.$refs.changeColor[index].style.background="pink"
-          this.wan_if[index] = true;
-        }
-      }else if(this.$store.state.abc[index]===true){
-        this.$store.state.abc[index]=false
-        if(this.$store.state.abc[index]===false){
-          this.$refs.changeColor[index].style.background="none"
-          this.wan_if[index] = false;
-        }
-      }else{
-        this.$store.state.abc[index]=true
-        if(this.$store.state.abc[index]===true){
-          this.$refs.changeColor[index].style.background="pink"
-          this.wan_if[index] = true;
-        }
-      }
+    ck_click(index){
+      this.$store.commit('ck_click',{index})
     },
     del_btn(name,index){
       this.$store.commit('del_btn',{name,index});
@@ -79,7 +56,7 @@ export default {
     complete(index){
         this.$delete(this.$store.state.todoitems,index);
         //삭제된거 완료로 붙여넣기.
-    }
+    },
   }
 }
 </script>
