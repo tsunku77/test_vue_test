@@ -7,54 +7,48 @@
       <li v-text="date"></li>
       <li v-text="wan_miwan"></li>
       <li v-text="result"></li>
-      <li v-text="order"></li>
     </ul>
     <ul class="titles">
       <li v-text="miwan"></li>
     </ul>
     <ul class="ulcss" v-for="(name,index) in todoitems" :key="index">
-      <li><input type="checkbox" ref="ckck" @click="ck_click(index)" v-model="$store.state.abc[index]"></li>
-      <li>{{index+1}}</li>
+      <li><input type="checkbox" @click="clickEv(index)" v-model="abc[index]"></li>
+      <li>{{todoitems.length-index}}</li>
       <li @click="$event.target.classList.toggle('active')" :class="{ active: isActive }">{{name.split("?")[0]}}</li>
       <li>{{name.split("?")[1].substr(0,19)}}</li>
-      <li v-if="$store.state.wan_if[index]">{{msg}}</li>
+      <li v-if="wan_if[index]">{{msg}}</li>
       <li v-else>{{miwan}}</li>
       <li><button type="button" v-text="btns4"  @click="complete(index)"></button></li>
-      <li v-if="ifif">{{$store.state.arraw}}</li>
-      <li v-if="ifif2 && countUP===index">{{$store.state.arraw1}}</li>
-      <li v-if="ifif3 && countUP===index">{{$store.state.arraw2}}</li>
-<!--      <li v-if="ifif3 && countUP===index">{{arraw2}}</li>-->
     </ul>
   </div>
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapState, mapMutations} from "vuex";
 export default {
   name: "todo_miwan",
   data(){
     return{
       ck:"체크",no:"NO",todo:"TO DO", modi:"수정",del:"삭제",date:"작성일시",result:"상태",
-      miwan:"미완료",order:"순서",wan_miwan:"결과",msg:"완료",
-      ifif:true,countUP:0, ifif2:false,ifif3:false,
+      miwan:"미완료",wan_miwan:"결과",msg:"완료",
       btns3:"수정",btns4:"완료시키기",isActive:false,
     }
   },
   computed: {
-    ...mapState(['todoitems']),
+    ...mapState(['todoitems','abc','wan_if']),
     // ...mapGetters(['abc']),
   },
   methods:{
-    ck_click(index){
-      this.$store.commit('ck_click',{index})
-    },
-    del_btn(name,index){
-      this.$store.commit('del_btn',{name,index});
-      this.$refs.changeColor[index].style.background="none"
-      this.$refs.ckck[index].checked=false
+    ...mapMutations({
+      ck_click:'ck_click'
+    }),
+
+    clickEv(index){
+      // this.$store.commit('ck_click',index)
+      this.ck_click(index)
     },
     complete(index){
-        this.$delete(this.$store.state.todoitems,index);
+        this.$delete(this.todoitems,index);
         //삭제된거 완료로 붙여넣기.
     },
   }
@@ -63,7 +57,7 @@ export default {
 <style>
 .titles{
   list-style: none; margin:0; padding:0;
-  width:750px; height:30px;
+  width:700px; height:30px;
 }
 .titles>li{
   border:1px solid black;
@@ -75,7 +69,7 @@ export default {
 }
 .ulcss{
   list-style: none; margin:0; padding:0;
-  width:750px; height:auto;
+  width:700px; height:auto;
   display:flex; flex-direction: row;
 }
 .ulcss>li{
@@ -89,5 +83,4 @@ export default {
 .ulcss>li:nth-of-type(4){width:200px;}
 .ulcss>li:nth-of-type(5){width:100px; }
 .ulcss>li:nth-of-type(6){width:100px;}
-.ulcss>li:nth-of-type(7){width:50px;}
 </style>
