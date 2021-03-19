@@ -113,6 +113,7 @@ export const store = new Vuex.Store({
         //#.삭제버튼
         del_btn(state) {
             console.log(state);
+
             // todoitems 안에 있는 todo 아이템만큼 반복문 실행
             for (let n = 0; n < state.todoitems.length; n++) {
 
