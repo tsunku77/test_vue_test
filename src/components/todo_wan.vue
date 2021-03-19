@@ -1,70 +1,114 @@
 <template>
-  <div class="todo_miwan">
-    <ul class="titles">
-      <li>완료</li>
-    </ul>
-    <div v-if="wan2">
-    <ul class="ulcss" v-for="(name) in todoitems2" :key="name.id">
-      <li><input type="checkbox" @click="clickEv(name.id)" v-model="name.boolean"></li>
-      <li>{{name.id}}</li>
-      <li @click="$event.target.classList.toggle('active')" :class="{ active: isActive }">{{name.title}}</li>
-      <li>{{name.date}}</li>
-      <li>완료</li>
-    </ul>
+  <div>
+    <div v-if="if_wan">
+      <ul class="titles">
+        <li>완료</li>
+      </ul>
+      <ul class="ulcss" v-for="(name,index) in todoLists2" :key="name.id">
+        <li><input type="checkbox" @click="wan_ck_click(index)" v-model="name.boolean"></li>
+        <li>{{ name.id }}</li>
+        <li @click="go_miwan(index)" :class="{ active: isActive }">{{ name.title }}</li>
+        <li>{{ name.date }}</li>
+        <li>완료</li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
-import {mapState, mapMutations} from "vuex";
+import {mapState, mapMutations, mapGetters} from "vuex";
+
 export default {
-  name: "todo_miwan",
-  data(){
-    return{
-      isActive:false,
+  name: "todo_wan",
+  data() {
+    return {
+      isActive: true
     }
   },
   computed: {
-    ...mapState(['todoitems2','wan_if','num','wan','wan2']),
-  },
-  methods:{
-    ...mapMutations({
-      ck_click:'ck_click'
+    ...mapState(['num','if_wan']),
+    ...mapGetters({
+      todoLists2: 'todoLists2'
     }),
-    clickEv(ck){
-      this.ck_click(ck)
-    },
+  },
+  methods: {
+    ...mapMutations({
+      wan_ck_click: 'wan_ck_click',
+      go_miwan: 'go_miwan'
+    }),
   }
 }
 </script>
 <style>
-.titles{
-  list-style: none; margin:0; padding:0;
-  width:600px; height:30px;
+.titles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 600px;
+  height: 30px;
 }
-.titles>li{
-  border:1px solid black;
-  height:30px; color:red; font-weight: bolder;
-  display:flex; flex-direction: row; justify-content: center; align-items: center;
+
+.titles > li {
+  border: 1px solid black;
+  height: 30px;
+  color: red;
+  font-weight: bolder;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
-.active{
+
+.active {
   text-decoration: line-through;
-  display:none;
 }
-.ulcss{
-  list-style: none; margin:0; padding:0;
-  width:600px; height:auto;
-  display:flex; flex-direction: row;
+
+.ulcss {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 600px;
+  height: auto;
+  display: flex;
+  flex-direction: row;
 }
-.ulcss>li{
-  border:1px solid black;
-  height:30px;
-  display:flex; flex-direction: row; justify-content: center; align-items: center;
+
+.ulcss > li {
+  border: 1px solid black;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
-.ulcss>li:nth-of-type(1){width:50px;}
-.ulcss>li:nth-of-type(2){width:50px;}
-.ulcss>li:nth-of-type(3){width:200px; cursor:pointer;}
-.ulcss>li:nth-of-type(4){width:200px;}
-.ulcss>li:nth-of-type(5){width:100px; }
-.ulcss>li:nth-of-type(6){width:100px;}
+
+.ulcss > li:nth-of-type(1) {
+  width: 50px;
+}
+
+.ulcss > li:nth-of-type(2) {
+  width: 50px;
+}
+
+.ulcss > li:nth-of-type(3) {
+  width: 200px;
+  cursor: pointer;
+}
+
+.ulcss > li:nth-of-type(4) {
+  width: 200px;
+}
+
+.ulcss > li:nth-of-type(5) {
+  width: 100px;
+}
+
+.ulcss > li:nth-of-type(6) {
+  width: 100px;
+}
+
+.ulcss3 {
+  background: red;
+  color: white
+}
 </style>

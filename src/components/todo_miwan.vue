@@ -1,5 +1,5 @@
 <template>
-  <div class="todo_miwan">
+  <div>
     <ul class="ulcss ulcss3">
       <li>체크</li>
       <li>NO</li>
@@ -7,14 +7,14 @@
       <li>작성일시</li>
       <li>결과</li>
     </ul>
-    <ul class="titles">
-      <li>미완료</li>
-    </ul>
-    <div v-for="(name) in todoLists" :key="name.id">
-      <ul class="ulcss" v-if="wan">
-        <li><input type="checkbox" @click="clickEv(name.id)" v-model="name.boolean"></li>
+    <div v-if="if_miwan">
+      <ul class="titles">
+        <li>미완료</li>
+      </ul>
+      <ul class="ulcss" v-for="(name,index) in todoLists" :key="name.id">
+        <li><input type="checkbox" @click="ck_click(index)" v-model="name.boolean"></li>
         <li>{{ name.id }}</li>
-        <li @click="changelist($event)" :class="{ active: isActive }">{{ name.title }}</li>
+        <li @click="changelist(index)" :class="{ active: name.boolean }">{{ name.title }}</li>
         <li>{{ name.date }}</li>
         <li v-if="wan_if[name.id]">완료</li>
         <li v-else>미완료</li>
@@ -34,22 +34,16 @@ export default {
     }
   },
   computed: {
-    ...mapState(['wan_if', 'num', 'wan']),
+    ...mapState(['wan_if', 'num', 'if_miwan']),
     ...mapGetters({
-      todoLists:'todoLists'
+      todoLists: 'todoLists',
     }),
   },
   methods: {
     ...mapMutations({
       ck_click: 'ck_click',
+      changelist: 'changelist'
     }),
-    changelist(event) {
-      event.target.className = 'active'
-      this.todoLists.splice(event, 1)
-    },
-    clickEv(ck) {
-      this.ck_click(ck)
-    },
   }
 }
 </script>

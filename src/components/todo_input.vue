@@ -3,8 +3,11 @@
     <input type="text" v-model="counter" placeholder="할 일을 작성해주세요" @keypress.enter="add_btn()" ref="ref_focus"
            autofocus>
     <button type="button" @click.prevent="add_btn()">추가</button>
-    <button type="button" @click.prevent="click_del()">삭제</button>
-    <button type="button" @click="click_down()" class="btn_hasal" v-if="ifif1">▼</button>
+    <button type="button" @click.prevent="del_btn()">삭제</button>
+    <button type="button" @click.prevent="miwan_btn()">Only 미완료</button>
+    <button type="button" @click.prevent="wan_btn()">Only 완료</button>
+    <button type="button" @click.prevent="all_btn()">전체 보기</button>
+    <button type="button" @click.prevent="down_btn(num)" class="btn_hasal" v-if="ifif1">▼</button>
     <button type="button" class="btn_hasal" v-if="ifif2">▲</button>
   </div>
 </template>
@@ -30,15 +33,13 @@ export default {
   },
   methods: {
     ...mapMutations({
-      del_btn: 'del_btn', down_btn: 'down_btn',
-      add_btn2: 'add_btn'
+      del_btn: 'del_btn',
+      add_btn2: 'add_btn',
+      miwan_btn:'miwan_btn',
+      wan_btn:'wan_btn',
+      all_btn:'all_btn',
+      down_btn: 'down_btn',
     }),
-    click_del() {
-      this.del_btn()
-    },
-    click_down(x) {
-      this.down_btn(x)
-    },
     add_btn() {
       this.num++
       if (this.counter.trim() !== '') {
