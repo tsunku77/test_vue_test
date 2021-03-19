@@ -3,7 +3,7 @@
     <input type="text" v-model="counter" placeholder="할 일을 작성해주세요" @keypress.enter="add_btn()" ref="ref_focus"
            autofocus>
     <button type="button" @click.prevent="add_btn()">추가</button>
-    <button type="button" @click.prevent="del_btn()">삭제</button>
+    <button type="button" @click.prevent="del_btn(counter)">삭제</button>
     <button type="button" @click.prevent="miwan_btn()">Only 미완료</button>
     <button type="button" @click.prevent="wan_btn()">Only 완료</button>
     <button type="button" @click.prevent="all_btn()">전체 보기</button>

@@ -70,29 +70,32 @@ export const store = new Vuex.Store({
             state.wan_if[state.todoitems[payload].id] = !state.wan_if[state.todoitems[payload].id]
         },
         wan_ck_click(state, payload) {
+            console.log(state);
+            console.log(payload);
+            alert('체크는 삭제만 가능합니다^^ 상하조정은 미완료란에서만 가능합니다');
             // (완료)상하 버튼 조정
-            if (payload === 0) {    //상
-                state.ifif1 = true;
-                state.ifif2 = false;
-                if (state.todoitems2[payload].boolean) {
-                    state.ifif1 = false;
-                    state.ifif2 = false;
-                }
-            } else if (payload === state.todoitems2.length - 1) {  //하
-                state.ifif2 = true;
-                state.ifif1 = false;
-                if (state.todoitems2[payload].boolean) {
-                    state.ifif1 = false;
-                    state.ifif2 = false;
-                }
-            } else {   //상하
-                state.ifif1 = true;
-                state.ifif2 = true;
-                if (state.todoitems2[payload].boolean) {
-                    state.ifif1 = false;
-                    state.ifif2 = false;
-                }
-            }
+            // if (payload === 0) {    //상
+            //     state.ifif1 = true;
+            //     state.ifif2 = false;
+            //     if (state.todoitems2[payload].boolean) {
+            //         state.ifif1 = false;
+            //         state.ifif2 = false;
+            //     }
+            // } else if (payload === state.todoitems2.length - 1) {  //하
+            //     state.ifif2 = true;
+            //     state.ifif1 = false;
+            //     if (state.todoitems2[payload].boolean) {
+            //         state.ifif1 = false;
+            //         state.ifif2 = false;
+            //     }
+            // } else {   //상하
+            //     state.ifif1 = true;
+            //     state.ifif2 = true;
+            //     if (state.todoitems2[payload].boolean) {
+            //         state.ifif1 = false;
+            //         state.ifif2 = false;
+            //     }
+            // }
         },
         // 입력값 배열에 넣기
         add_btn(state, payload) {
@@ -109,6 +112,7 @@ export const store = new Vuex.Store({
 
         //#.삭제버튼
         del_btn(state) {
+            console.log(state);
             // todoitems 안에 있는 todo 아이템만큼 반복문 실행
             for (let n = 0; n < state.todoitems.length; n++) {
 
