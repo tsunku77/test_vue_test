@@ -14,24 +14,36 @@ export const store = new Vuex.Store({
         todoLists: state => state.todoitems,
         todoLists2: state => state.todoitems2,
     },
-    mutations: { //state 를 바꿔주는 역할 payload
-        down_btn(state,payload) {
-            // console.log(payload); //length를 갖고옴..
-            for (let k = 0; k < state.todoitems.length; k++) {
+    mutations: {
+        //버튼 클릭시 상하 이동
+        down_btn(state, payload) {    //payload = length
+            for (let k = 0; k < payload; k++) {
                 if (state.todoitems[k].boolean) {
-                    if (k < payload-1) {
+                    if (k < payload - 1) {
                         k++
-                        state.todoitems.splice(k, 0)
-                        state.todoitems.unshift(state.todoitems.splice(k, 1)[0]);
-                        console.log(k);
-                    }else {
-                        k = 0;
+                    }else{
+                        alert('최상단으로 올라갑니다')
                     }
+                    state.todoitems.splice(k, 0)
+                    state.todoitems.unshift(state.todoitems.splice(k, 1)[0])
+                }
+            }
+        },
+        up_btn(state, payload) {
+            for (let k = payload-1; k >= 0 ; k--) {
+                if (state.todoitems[k].boolean) {
+                    if (k > 0) {
+                        k--
+                    }else{
+                        alert('최하단으로 내려갑니다')
+                    }
+                    state.todoitems.splice(k, 0)
+                    state.todoitems.push(state.todoitems.splice(k, 1)[0]);
                 }
             }
         },
         ck_click(state, payload) {
-            //#. 상하 버튼 조정(미완)
+            // (미완료) 상하 버튼 조정
             if (payload === 0) {    //상
                 state.ifif1 = true;
                 state.ifif2 = false;
@@ -54,11 +66,11 @@ export const store = new Vuex.Store({
                     state.ifif2 = false;
                 }
             }
-            //#. 결과 완료 미완료
+            //결과 완료 미완료
             state.wan_if[state.todoitems[payload].id] = !state.wan_if[state.todoitems[payload].id]
         },
         wan_ck_click(state, payload) {
-            //#. 상하 버튼 조정(완)
+            // (완료)상하 버튼 조정
             if (payload === 0) {    //상
                 state.ifif1 = true;
                 state.ifif2 = false;
@@ -82,14 +94,15 @@ export const store = new Vuex.Store({
                 }
             }
         },
+        // 입력값 배열에 넣기
         add_btn(state, payload) {
-            state.todoitems.unshift(payload) // 입력값 배열에 넣기
+            state.todoitems.unshift(payload)
         },
         changelist(state, payload) {
             state.todoitems2.unshift(state.todoitems[payload])
             state.todoitems.splice(payload, 1)
         },
-        go_miwan2(state, payload) {
+        go_miwan(state, payload) {
             state.todoitems.unshift(state.todoitems2[payload])
             state.todoitems2.splice(payload, 1)
         },

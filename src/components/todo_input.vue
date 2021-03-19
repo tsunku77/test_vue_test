@@ -8,7 +8,7 @@
     <button type="button" @click.prevent="wan_btn()">Only 완료</button>
     <button type="button" @click.prevent="all_btn()">전체 보기</button>
     <button type="button" @click.prevent="down_btn(num)" class="btn_hasal" v-if="ifif1">▼</button>
-    <button type="button" class="btn_hasal" v-if="ifif2">▲</button>
+    <button type="button" @click.prevent="up_btn(num)" class="btn_hasal" v-if="ifif2">▲</button>
   </div>
 </template>
 
@@ -39,6 +39,7 @@ export default {
       wan_btn:'wan_btn',
       all_btn:'all_btn',
       down_btn: 'down_btn',
+      up_btn:'up_btn'
     }),
     add_btn() {
       this.num++
@@ -75,6 +76,7 @@ export default {
   background: red;
   border: 1px solid black;
   border-radius: 10px 10px 0 0;
+  cursor:pointer;
 }
 
 .btn_hasal:hover {

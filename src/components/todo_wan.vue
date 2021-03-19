@@ -51,7 +51,6 @@ export default {
 .titles > li {
   border: 1px solid black;
   height: 30px;
-  color: red;
   font-weight: bolder;
   display: flex;
   flex-direction: row;

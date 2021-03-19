@@ -14,7 +14,7 @@
       <ul class="ulcss" v-for="(name,index) in todoLists" :key="name.id">
         <li><input type="checkbox" @click="ck_click(index)" v-model="name.boolean"></li>
         <li>{{ name.id }}</li>
-        <li @click="changelist(index)" :class="{ active: name.boolean }">{{ name.title }}</li>
+        <li @click="changelist(index)" :class="{ active: isActive }">{{ name.title }}</li>
         <li>{{ name.date }}</li>
         <li v-if="wan_if[name.id]">완료</li>
         <li v-else>미완료</li>
@@ -54,12 +54,13 @@ export default {
   padding: 0;
   width: 600px;
   height: 30px;
+  background: pink;
 }
 
 .titles > li {
   border: 1px solid black;
   height: 30px;
-  color: red;
+  color: black;
   font-weight: bolder;
   display: flex;
   flex-direction: row;
