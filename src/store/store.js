@@ -95,7 +95,7 @@ export const store = new Vuex.Store({
                 }
             }
         },
-        // 입력값 배열에 넣기
+        // 입력값 배열 넣기
         add_btn(state, payload) { //payload = 입력값(배열)
             state.todoitems.splice(0,0,payload)
         },
