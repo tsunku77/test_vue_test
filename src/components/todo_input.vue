@@ -1,14 +1,18 @@
 <template>
   <div class="todo_input">
-    <input type="text" v-model="counter" placeholder="할 일을 작성해주세요" @keypress.enter="add_btn()" ref="ref_focus"
-           autofocus>
-    <button type="button" @click.prevent="add_btn()">추가</button>
-    <button type="button" @click.prevent="del_btn(counter)">삭제</button>
-    <button type="button" @click.prevent="miwan_btn()">Only 미완료</button>
-    <button type="button" @click.prevent="wan_btn()">Only 완료</button>
-    <button type="button" @click.prevent="all_btn()">전체 보기</button>
-    <button type="button" @click.prevent="down_btn(num)" class="btn_hasal" v-if="ifif1">▼</button>
-    <button type="button" @click.prevent="up_btn(num)" class="btn_hasal" v-if="ifif2">▲</button>
+    <div class="col-md-12 input_box">
+      <b-form-input type="text" size="md" class="form-control" v-model="Atodo"
+             placeholder="할 일을 작성해주세요" @keypress.enter="add_btn()" ref="ref_focus" autofocus></b-form-input>
+      <b-button squared variant="warning" size="lg" @click.prevent="add_btn()">추가</b-button>
+      <b-button squared variant="success" size="lg" @click.prevent="del_btn()">삭제</b-button>
+    </div>
+    <div class="btns_box">
+      <b-button pill variant="outline-info" @click.prevent="miwan_btn()">Only 미완료</b-button>
+      <b-button pill variant="outline-danger" @click.prevent="wan_btn()">Only 완료</b-button>
+      <b-button pill variant="outline-primary" @click.prevent="all_btn()">전체 보기</b-button>
+      <button type="button" @click.prevent="down_btn()" class="btn_hasal" v-if="vif_down">▼</button>
+      <button type="button" @click.prevent="up_btn()" class="btn_hasal btn_location" v-if="vif_up">▲</button>
+    </div>
   </div>
 </template>
 
@@ -19,42 +23,42 @@ export default {
   name: "todo_input",
   data() {
     return {
-      num: 0,counter:"",
+      num: 0, Atodo: "",
     }
   },
   computed: {
     ...mapGetters({
-      todoLists:'todoLists'
+      todoLists: 'todoLists'
     }),
     ...mapState({
-      ifif1: 'ifif1',
-      ifif2: 'ifif2',
+      vif_down: 'vif_down',
+      vif_up: 'vif_up',
     }),
   },
   methods: {
     ...mapMutations({
       del_btn: 'del_btn',
       add_btn2: 'add_btn',
-      miwan_btn:'miwan_btn',
-      wan_btn:'wan_btn',
-      all_btn:'all_btn',
+      miwan_btn: 'miwan_btn',
+      wan_btn: 'wan_btn',
+      all_btn: 'all_btn',
       down_btn: 'down_btn',
-      up_btn:'up_btn'
+      up_btn: 'up_btn'
     }),
     add_btn() {
       this.num++
-      if (this.counter.trim() !== '') {
+      if (this.Atodo.trim() !== '') {
         this.add_btn2({
           id: this.num,
-          title: this.counter,
+          title: this.Atodo,
           date: this.$moment().format('YYYY-MM-DD HH:mm:ss'),
-          boolean: false,
+          checked: false,
         });
-        this.counter = '';
+        this.Atodo = '';
         this.$refs.ref_focus.focus();
       } else {
         alert("할 일을 작성해주세요");
-        this.counter = '';
+        this.Atodo = '';
         this.$refs.ref_focus.focus();
       }
     }
@@ -64,7 +68,27 @@ export default {
 <style>
 .todo_input {
   width: 600px;
-  height: 50px;
+  height: auto;
+}
+
+.input_box {
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.form-control{
+  margin-right:10px;
+}
+
+.btns_box {
+  width: 100%;
+  height: auto;
+  float: left;
+  line-height: 50px;
+  position: relative;
 }
 
 .btn_hasal {
@@ -76,7 +100,11 @@ export default {
   background: red;
   border: 1px solid black;
   border-radius: 10px 10px 0 0;
-  cursor:pointer;
+  cursor: pointer;
+}
+
+.btn_location {
+  position: absolute; right:50px;
 }
 
 .btn_hasal:hover {

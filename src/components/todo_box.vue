@@ -21,3 +21,11 @@ export default {
   }
 }
 </script>
+<style>
+  .todo_box{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+</style>

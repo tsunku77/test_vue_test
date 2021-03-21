@@ -7,16 +7,16 @@
       <li>작성일시</li>
       <li>결과</li>
     </ul>
-    <div v-if="if_miwan">
+    <div v-if="vif_todoitems">
       <ul class="titles">
         <li>미완료</li>
       </ul>
-      <ul class="ulcss" v-for="(name,index) in todoLists" :key="name.id">
-        <li><input type="checkbox" @click="ck_click(index)" v-model="name.boolean"></li>
-        <li>{{ name.id }}</li>
-        <li @click="changelist(index)" :class="{ active: isActive }">{{ name.title }}</li>
-        <li>{{ name.date }}</li>
-        <li v-if="wan_if[name.id]">완료</li>
+      <ul class="ulcss" v-for="(value,index) in todoLists" :key="value.id">
+        <li><input type="checkbox" @click="ck_click(index)" v-model="value.checked"></li>
+        <li>{{ value.id }}</li>
+        <li @click="changelist(index)" :class="{ active: isActive }">{{ value.title }}</li>
+        <li>{{ value.date }}</li>
+        <li v-if="showComplete[value.id]">완료</li>
         <li v-else>미완료</li>
       </ul>
     </div>
@@ -34,7 +34,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['wan_if', 'num', 'if_miwan']),
+    ...mapState(['showComplete', 'num', 'vif_todoitems']),
     ...mapGetters({
       todoLists: 'todoLists',
     }),
@@ -85,10 +85,6 @@ export default {
 .ulcss > li {
   border: 1px solid black;
   height: 30px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
 }
 
 .ulcss > li:nth-of-type(1) {

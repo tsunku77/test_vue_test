@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div v-if="if_wan">
+    <div v-if="vif_Complete_todoitems">
       <ul class="titles">
         <li>완료</li>
       </ul>
       <ul class="ulcss" v-for="(name,index) in todoLists2" :key="name.id">
-        <li><input type="checkbox" @click="wan_ck_click(index)" v-model="name.boolean"></li>
+        <li><input type="checkbox" @click="wan_ck_click(index)" v-model="name.checked"></li>
         <li>{{ name.id }}</li>
         <li @click="go_miwan(index)" :class="{ active: isActive }">{{ name.title }}</li>
         <li>{{ name.date }}</li>
@@ -26,7 +26,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['num','if_wan']),
+    ...mapState(['num','vif_Complete_todoitems']),
     ...mapGetters({
       todoLists2: 'todoLists2'
     }),
