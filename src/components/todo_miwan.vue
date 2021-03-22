@@ -13,7 +13,7 @@
       </ul>
       <ul class="ulcss" v-for="(value,index) in todoLists" :key="value.id">
         <li><input type="checkbox" @click="ck_click(index)" v-model="value.checked"></li>
-        <li>{{ value.id }}</li>
+        <li>{{ todoLists.length-index }}</li>
         <li @click="changelist(index)" :class="{ active: isActive }">{{ value.title }}</li>
         <li>{{ value.date }}</li>
         <li v-if="showComplete[value.id]">완료</li>

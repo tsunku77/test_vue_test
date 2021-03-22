@@ -4,13 +4,14 @@
       <ul class="titles">
         <li>완료</li>
       </ul>
-      <ul class="ulcss" v-for="(name,index) in todoLists2" :key="name.id">
-        <li><input type="checkbox" @click="wan_ck_click(index)" v-model="name.checked"></li>
-        <li>{{ name.id }}</li>
-        <li @click="go_miwan(index)" :class="{ active: isActive }">{{ name.title }}</li>
-        <li>{{ name.date }}</li>
+      <ul class="ulcss" v-for="(value,index) in todoLists2" :key="value.id">
+        <li><input type="checkbox" v-model="value.checked"></li>
+        <li>{{ todoLists2.length-index }}</li>
+        <li @click="go_miwan(index)" :class="{ active: isActive }">{{ value.title }}</li>
+        <li>{{ value.date }}</li>
         <li>완료</li>
       </ul>
+      <div>※ 완료란의 체크는 삭제만 가능합니다.</div>
     </div>
   </div>
 </template>
@@ -26,7 +27,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['num','vif_Complete_todoitems']),
+    ...mapState(['num','vif_Complete_todoitems','notice']),
     ...mapGetters({
       todoLists2: 'todoLists2'
     }),

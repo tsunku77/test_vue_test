@@ -1,6 +1,6 @@
 <template>
   <div class="todo_box">
-    <h1>Todo List</h1>
+    <h1>Todo List 배열2개</h1>
     <todo_input/>
     <todo_miwan/>
     <todo_wan/>
