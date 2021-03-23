@@ -16,7 +16,7 @@
         <li>{{ todoLists.length-index }}</li>
         <li @click="changelist(index)" :class="{ active: isActive }">{{ value.title }}</li>
         <li>{{ value.date }}</li>
-        <li v-if="showComplete[value.id]">완료</li>
+        <li v-if="showComplete[index]">완료</li>
         <li v-else>미완료</li>
       </ul>
     </div>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import {mapState, mapMutations, mapGetters} from "vuex";
+import {mapMutations, mapGetters} from "vuex";
 
 export default {
   name: "todo_miwan",
@@ -34,9 +34,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['showComplete', 'num', 'vif_todoitems']),
     ...mapGetters({
       todoLists: 'todoLists',
+      showComplete:'showComplete',
+      vif_todoitems:'vif_todoitems'
     }),
   },
   methods: {

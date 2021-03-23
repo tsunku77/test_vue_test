@@ -1,10 +1,9 @@
 <template>
-  <div>
     <div v-if="vif_Complete_todoitems">
       <ul class="titles">
         <li>완료</li>
       </ul>
-      <ul class="ulcss" v-for="(value,index) in todoLists2" :key="value.id">
+      <ul class="ulcss" v-for="(value,index) in todoLists2" :key="index">
         <li><input type="checkbox" v-model="value.checked"></li>
         <li>{{ todoLists2.length-index }}</li>
         <li @click="go_miwan(index)" :class="{ active: isActive }">{{ value.title }}</li>
@@ -13,11 +12,10 @@
       </ul>
       <div>※ 완료란의 체크는 삭제만 가능합니다.</div>
     </div>
-  </div>
 </template>
 
 <script>
-import {mapState, mapMutations, mapGetters} from "vuex";
+import {mapMutations, mapGetters} from "vuex";
 
 export default {
   name: "todo_wan",
@@ -27,9 +25,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['num','vif_Complete_todoitems','notice']),
     ...mapGetters({
-      todoLists2: 'todoLists2'
+      todoLists2: 'todoLists2',
+      vif_Complete_todoitems:'vif_Complete_todoitems',
+      notice:'notice'
     }),
   },
   methods: {

@@ -1,15 +1,16 @@
 <template>
   <div class="todo_input">
     <div class="col-md-12 input_box">
-      <b-form-input type="text" size="md" class="form-control" v-model="Atodo"
-             placeholder="할 일을 작성해주세요" @keypress.enter="add_btn()" ref="ref_focus" autofocus></b-form-input>
+      <b-form-input type="text" class="form-control-md" v-model="Atodo"
+             placeholder="할 일을 작성해주세요" @keypress.enter="add_btn()" autofocus></b-form-input>
       <b-button squared variant="warning" size="lg" @click.prevent="add_btn()">추가</b-button>
       <b-button squared variant="success" size="lg" @click.prevent="del_btn()">삭제</b-button>
     </div>
     <div class="btns_box">
-      <b-button pill variant="outline-info" @click.prevent="miwan_btn()">Only 미완료</b-button>
-      <b-button pill variant="outline-danger" @click.prevent="wan_btn()">Only 완료</b-button>
+      <b-button pill variant="outline-info" @click.prevent="miwan_btn()">미완료 보기</b-button>
+      <b-button pill variant="outline-danger" @click.prevent="wan_btn()">완료 보기</b-button>
       <b-button pill variant="outline-primary" @click.prevent="all_btn()">전체 보기</b-button>
+      <b-button pill variant="outline-warning" @click.prevent="reset_btn()">초기화</b-button>
       <button type="button" @click.prevent="down_btn()" class="btn_hasal" v-if="vif_down">▼</button>
       <button type="button" @click.prevent="up_btn()" class="btn_hasal btn_location" v-if="vif_up">▲</button>
     </div>
@@ -43,7 +44,8 @@ export default {
       wan_btn: 'wan_btn',
       all_btn: 'all_btn',
       down_btn: 'down_btn',
-      up_btn: 'up_btn'
+      up_btn: 'up_btn',
+      reset_btn:'reset_btn'
     }),
     add_btn() {
       this.num++
@@ -55,12 +57,8 @@ export default {
           checked: false,
         });
         this.Atodo = '';
-        this.$refs.ref_focus.focus();
-      } else {
-        alert("할 일을 작성해주세요");
+      } else alert("할 일을 작성해주세요");
         this.Atodo = '';
-        this.$refs.ref_focus.focus();
-      }
     }
   }
 }
@@ -72,7 +70,7 @@ export default {
 }
 
 .input_box {
-  width:100%;
+  width:100%; height:auto;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -94,7 +92,8 @@ export default {
 .btn_hasal {
   float: right;
   width: 50px;
-  height: 50px;
+  height: 49px;
+  box-sizing: border-box;
   font-size: 30px;
   color: white;
   background: red;
